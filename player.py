@@ -9,6 +9,7 @@ class Player:
     isBomb = False
     count_bomb = 2
     bombs = []
+    img = pygame.image.load("img/postavicka1.png")
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -23,12 +24,11 @@ class Player:
             self.y += 10
     def draw(self, window):
         for i in self.bombs:
-            print(self.bombs)
             i.draw(window)
             vybuchnuta = i.vybuch()
             if vybuchnuta:
                 self.bombs.remove(i)
-        pygame.draw.rect(window, (0, 0, 255), [self.x, self.y, self.size, self.size])
+        window.blit(self.img, (self.x, self.y))
     def pustBombu(self):
         if len(self.bombs) < self.count_bomb:
             bomb = Bomb(self.x, self.y, pygame.time.get_ticks() / 1000)

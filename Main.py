@@ -6,15 +6,18 @@ class Game:
     keys = []
     key = ''
     mapa = []
+    walls = []
+    SIZE = 50
+    WIDTH = 12
+    HEIGHT = 12
+    grassImg = pygame.image.load("img/trava.png")
     def __init__(self):
         pygame.init()
         self.window = pygame.display.set_mode((800, 600))
         done = False
         self.clock = pygame.time.Clock()
         self.player1 = Player(600, 0)
-
     def main(self):
-        time_seconds = pygame.time.get_ticks() / 1000
         while not self.done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -31,14 +34,16 @@ class Game:
                     self.key = "space"
                 else:
                     self.key = ''
-            self.window.fill((255, 255, 255))
+            for i in range(0, 600, 50):
+                for j in range(0, 800, 50):
+                    self.window.blit(self.grassImg, (j, i))
             self.player1.draw(self.window)
             self.player1.move(self.key)
             if self.key == "space":
                 self.player1.pustBombu()
                 self.key = ''
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(60)
         pygame.quit()
 
 
