@@ -1,5 +1,6 @@
 import pygame
 from player import Player
+from wall import Wall
 
 class Game:
     done = False
@@ -17,6 +18,16 @@ class Game:
         done = False
         self.clock = pygame.time.Clock()
         self.player1 = Player(600, 0)
+        mapa = open("map/map.txt")
+        for i in range(12):
+            riadok = mapa.readline()
+            for j in riadok:
+                if j == '2':
+                    wall = Wall(j * 50, i * 50, True)
+                if j == '1':
+                    wall = Wall(j * 50, i * 50, False)
+                walls.append(wall)
+        print(walls)
     def main(self):
         while not self.done:
             for event in pygame.event.get():
